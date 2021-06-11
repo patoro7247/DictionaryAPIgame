@@ -39,7 +39,8 @@ def getAntonymList(word):
     if len(uniqueAntonymList) == 0:
         return 0
 
-    print(antonymList)
+    correct_answers_string = 'CORRECT ANSWERS: '+','.join(antonymList)
+    print(correct_answers_string)
     return uniqueAntonymList
 
 
@@ -54,7 +55,7 @@ def intro():
 
 def verifyWordHasAntonym(word):
     antonymList = []
-    newURL = url + word
+    newURL = str(url) + str(word)
     response = requests.request("GET", newURL, headers=headers)
     data = response.json()
     if 'lexemes' in data['entries'][0]:
@@ -83,9 +84,10 @@ def userGuess(antonymset, theRandomWordGiven):
     print("Guess an antonym for: "+theRandomWordGiven)
     userInput = input()
     if userInput in antonymset:
-        print("Congratulations, that was correct\n")
+        print("Correct!\n")
         totalScore += 1
         totalRounds += 1
+        print("Your total score is: "+str(totalScore)+' in '+str(totalRounds)+' Rounds!')
         startRound()
 
     else:
